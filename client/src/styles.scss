@@ -45,14 +45,14 @@ body {
 }
 
 // Bootstrap Override
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 660px) {
   .card-column {
-    flex: 0 0 350px;
-    max-width: 350px;
+    flex: 0 0 330px;
+    max-width: 330px;
   }
 }
 
-// Material Override / Custom
+// Material Override
 .classroom-card {
   border-radius: 16px;
   overflow: hidden;
