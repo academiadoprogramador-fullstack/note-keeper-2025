@@ -1,23 +1,26 @@
 .sidenav-container {
   height: 100%;
-
-  background-color: #ececec;
 }
 
 .sidenav {
   width: 300px;
 
-  border-top-right-radius: 0;
-
-  padding: 0 10px;
+  border-radius: 0;
+  background-color: var(--mat-sys-surface-container-low);
 }
 
 .sidenav .mat-toolbar {
   background: inherit;
+  background-color: inherit;
+
+  outline: 1px solid var(--mat-sys-surface-container);
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+
+  outline: 1px solid var(--mat-sys-surface-container);
+  background-color: var(--mat-sys-surface-container-low);
 }

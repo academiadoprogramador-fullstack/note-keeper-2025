@@ -1,8 +1,8 @@
-<mat-card>
+<mat-card class="card-primary">
   <mat-card-content>
     <div class="row justify-content-center align-items-center g-3 p-3">
       <div class="col">
-        <h3>Crie e organize suas notas com facilidade com o NoteKeeper</h3>
+        <mat-card-title>Crie e organize suas notas com facilidade com o NoteKeeper</mat-card-title>
 
         <p class="mt-4 fs-6">
           Transforme suas ideias em ação. O NoteKeeper é o seu espaço pessoal para anotar
@@ -44,7 +44,12 @@
       <mat-divider></mat-divider>
 
       <mat-card-actions align="end">
-        <a routerLink="/categorias" mat-icon-button matTooltip="Ir para Categorias">
+        <a
+          routerLink="/categorias"
+          mat-icon-button
+          matTooltip="Ir para Categorias"
+          class="btn-primary"
+        >
           <mat-icon>arrow_outward</mat-icon>
         </a>
       </mat-card-actions>
@@ -62,7 +67,7 @@
       <mat-divider></mat-divider>
 
       <mat-card-actions align="end">
-        <a routerLink="/notas" mat-icon-button matTooltip="Ir para Notas">
+        <a routerLink="/notas" mat-icon-button matTooltip="Ir para Notas" class="btn-primary">
           <mat-icon>arrow_outward</mat-icon>
         </a>
       </mat-card-actions>

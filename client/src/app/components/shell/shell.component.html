@@ -7,11 +7,34 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-toolbar>
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          class="me-2"
+          matIconButton
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span class="d-flex align-items-center gap-2">
+        <mat-icon>collections_bookmark</mat-icon>
+        <span class="fs-3">NoteKeeper</span>
+      </span>
+    </mat-toolbar>
+    <mat-nav-list class="px-2">
       @for (item of itensNavbar; track $index) {
-        <a mat-list-item [routerLink]="item.link">
-          <mat-icon matListItemIcon>{{ item.icone }}</mat-icon>
+        <a
+          mat-list-item
+          [routerLink]="item.link"
+          routerLinkActive="list-item-active-primary"
+          class="my-1"
+        >
+          <mat-icon matListItemIcon class="material-icons-outlined" class="fs-4">{{
+            item.icone
+          }}</mat-icon>
           {{ item.titulo }}
         </a>
       }
@@ -29,8 +52,11 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
+        <span class="d-flex align-items-center gap-2">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span class="fs-3">NoteKeeper</span>
+        </span>
       }
-      <span>NoteKeeper</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="container-fluid py-3">
