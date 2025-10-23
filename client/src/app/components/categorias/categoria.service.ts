@@ -32,10 +32,10 @@ export class CategoriaService {
     return this.http.put<EditarCategoriaResponseModel>(urlCompleto, categoria);
   }
 
-  public excluir(id: string): Observable<void> {
+  public excluir(id: string): Observable<null> {
     const urlCompleto = `${this.apiUrl}/${id}`;
 
-    return this.http.delete<void>(urlCompleto);
+    return this.http.delete<null>(urlCompleto);
   }
 
   public selecionarTodas(): Observable<ListagemCategoriasModel[]> {
