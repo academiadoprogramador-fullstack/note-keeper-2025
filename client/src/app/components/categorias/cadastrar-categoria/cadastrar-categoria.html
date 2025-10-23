@@ -5,7 +5,7 @@
     <hr />
 
     <mat-card class="p-3">
-      <form (ngSubmit)="cadastrar()">
+      <form [formGroup]="categoriaForm" (ngSubmit)="cadastrar()">
         <mat-card-header>
           <mat-card-title class="fs-4">Preencha o formulário</mat-card-title>
         </mat-card-header>
@@ -13,7 +13,14 @@
         <mat-card-content class="mt-5">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Título da Categoria</mat-label>
-            <input matInput />
+            <input matInput formControlName="titulo" />
+            @if (titulo?.errors?.['required']) {
+              <mat-error>O título da categoria é obrigatório.</mat-error>
+            }
+
+            @if (titulo?.errors?.['minlength']) {
+              <mat-error>O título da categoria precisa conter ao menos 3 caracteres.</mat-error>
+            }
           </mat-form-field>
         </mat-card-content>
 

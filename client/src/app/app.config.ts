@@ -1,5 +1,8 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
-    ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
@@ -22,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
+    provideHttpClient(),
   ],
 };
