@@ -1,0 +1,4 @@
+.vs
+.vscode
+.rider
+/server/.env
