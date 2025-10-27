@@ -1,5 +1,13 @@
 import {
-    filter, finalize, map, Observable, PartialObserver, shareReplay, switchMap, take, tap
+  filter,
+  finalize,
+  map,
+  Observable,
+  PartialObserver,
+  shareReplay,
+  switchMap,
+  take,
+  tap,
 } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
@@ -12,8 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
+import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
 import {
-    DetalhesCategoriasModel, EditarCategoriaModel, EditarCategoriaResponseModel
+  DetalhesCategoriasModel,
+  EditarCategoriaModel,
+  EditarCategoriaResponseModel,
 } from '../categoria.models';
 import { CategoriaService } from '../categoria.service';
 
@@ -36,6 +47,7 @@ export class EditarCategoria {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly categoriaService = inject(CategoriaService);
+  private readonly notificacaoService = inject(NotificacaoService);
 
   protected readonly categoriaForm: FormGroup = this.formBuilder.group({
     titulo: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,8 +70,11 @@ export class EditarCategoria {
     const editarCategoriaModel: EditarCategoriaModel = this.categoriaForm.value;
 
     const edicaoObserver: PartialObserver<EditarCategoriaResponseModel> = {
-      next: (res) => console.log(res),
-      error: (err) => console.error('Ocorreu um erro inesperado.', err),
+      next: () =>
+        this.notificacaoService.sucesso(
+          `Registro "${editarCategoriaModel.titulo}" editado com sucesso!`,
+        ),
+      error: (err) => this.notificacaoService.erro('Ocorreu um erro inesperado: ' + err.message),
     };
 
     this.categoria$

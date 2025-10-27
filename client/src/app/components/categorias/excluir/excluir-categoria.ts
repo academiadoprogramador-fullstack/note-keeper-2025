@@ -1,5 +1,12 @@
 import {
-    filter, finalize, map, Observable, PartialObserver, shareReplay, switchMap, take
+  filter,
+  finalize,
+  map,
+  Observable,
+  PartialObserver,
+  shareReplay,
+  switchMap,
+  take,
 } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
@@ -12,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
+import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
 import { DetalhesCategoriasModel } from '../categoria.models';
 import { CategoriaService } from '../categoria.service';
 
@@ -33,6 +41,7 @@ export class ExcluirCategoria {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly categoriaService = inject(CategoriaService);
+  private readonly notificacaoService = inject(NotificacaoService);
 
   protected readonly categoria$: Observable<DetalhesCategoriasModel> = this.route.data.pipe(
     filter((data) => data['categoria']),
@@ -42,7 +51,8 @@ export class ExcluirCategoria {
 
   public excluir() {
     const exclusaoObserver: PartialObserver<null> = {
-      error: (err) => console.error('Ocorreu um erro inesperado.', err),
+      next: () => this.notificacaoService.sucesso('Registro excluído com sucesso!'),
+      error: (err) => this.notificacaoService.erro('Ocorreu um erro inesperado: ' + err.message),
     };
 
     this.categoria$

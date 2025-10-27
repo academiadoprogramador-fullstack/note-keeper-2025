@@ -5,14 +5,16 @@ import { inject, Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import {
-    CadastrarCategoriaModel, CadastrarCategoriaResponseModel, DetalhesCategoriasModel,
-    EditarCategoriaModel, EditarCategoriaResponseModel, ListagemCategoriasApiResponse,
-    ListagemCategoriasModel
+  CadastrarCategoriaModel,
+  CadastrarCategoriaResponseModel,
+  DetalhesCategoriasModel,
+  EditarCategoriaModel,
+  EditarCategoriaResponseModel,
+  ListagemCategoriasApiResponse,
+  ListagemCategoriasModel,
 } from './categoria.models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoriaService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl: string = environment.apiKey + '/categorias';

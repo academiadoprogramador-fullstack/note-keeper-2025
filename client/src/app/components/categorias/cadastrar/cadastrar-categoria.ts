@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 
+import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
 import { CadastrarCategoriaModel, CadastrarCategoriaResponseModel } from '../categoria.models';
 import { CategoriaService } from '../categoria.service';
 
@@ -29,6 +30,7 @@ export class CadastrarCategoria {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly categoriaService = inject(CategoriaService);
+  private readonly notificacaoService = inject(NotificacaoService);
 
   protected readonly categoriaForm: FormGroup = this.formBuilder.group({
     titulo: ['', [Validators.required, Validators.minLength(3)]],
@@ -44,8 +46,11 @@ export class CadastrarCategoria {
     const cadastrarCategoriaModel: CadastrarCategoriaModel = this.categoriaForm.value;
 
     const cadastroObserver: PartialObserver<CadastrarCategoriaResponseModel> = {
-      next: (res) => console.log(res),
-      error: (err) => console.error('Ocorreu um erro inesperado.', err),
+      next: () =>
+        this.notificacaoService.sucesso(
+          `Registro "${cadastrarCategoriaModel.titulo}" cadastrado com sucesso!`,
+        ),
+      error: (err) => this.notificacaoService.erro('Ocorreu um erro inesperado: ' + err.message),
     };
 
     this.categoriaService
