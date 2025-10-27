@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
+import { provideNotifications } from './components/shared/notificacao/notificacao.provider';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
@@ -22,7 +24,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-
     provideHttpClient(),
+
+    provideNotifications(),
   ],
 };
