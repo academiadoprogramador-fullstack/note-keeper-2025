@@ -10,9 +10,7 @@ import {
     ListagemCategoriasModel
 } from './categoria.models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoriaService {
   private readonly http = inject(HttpClient);
 
