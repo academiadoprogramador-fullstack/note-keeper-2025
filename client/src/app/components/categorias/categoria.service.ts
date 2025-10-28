@@ -14,7 +14,6 @@ import {
 })
 export class CategoriaService {
   private readonly http = inject(HttpClient);
-
   private readonly apiUrl = environment.apiUrl + '/categorias';
 
   public cadastrar(

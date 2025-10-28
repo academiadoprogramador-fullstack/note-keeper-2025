@@ -16,6 +16,21 @@ html {
     )
   );
 
+  .indicador-categoria {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+
+    @include mat.chips-overrides(
+      (
+        container-shape-radius: 32px,
+        elevated-container-color: var(--mat-sys-primary),
+        label-text-color: var(--mat-sys-on-primary),
+        outline-width: 0px,
+      )
+    );
+  }
+
   .notificacao-sucesso {
     @include mat.snack-bar-overrides(
       (
