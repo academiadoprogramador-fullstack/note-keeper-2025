@@ -1,5 +1,6 @@
-import { Observer } from 'rxjs';
+import { filter, map, Observer, shareReplay, switchMap, take, tap } from 'rxjs';
 
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,14 +8,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
-import { CadastrarCategoriaModel, CadastrarCategoriaResponseModel } from '../categoria.models';
+import { EditarCategoriaModel, EditarCategoriaResponseModel } from '../categoria.models';
 import { CategoriaService } from '../categoria.service';
 
 @Component({
-  selector: 'app-cadastrar-categoria',
+  selector: 'app-editar-categoria',
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -22,12 +23,14 @@ import { CategoriaService } from '../categoria.service';
     MatFormFieldModule,
     MatInputModule,
     RouterLink,
+    AsyncPipe,
     ReactiveFormsModule,
   ],
-  templateUrl: './cadastrar-categoria.html',
+  templateUrl: './editar-categoria.html',
 })
-export class CadastrarCategoria {
+export class EditarCategoria {
   protected readonly formBuilder = inject(FormBuilder);
+  protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
   protected readonly categoriaService = inject(CategoriaService);
   protected readonly notificacaoService = inject(NotificacaoService);
@@ -40,20 +43,33 @@ export class CadastrarCategoria {
     return this.categoriaForm.get('titulo');
   }
 
-  public cadastrar() {
+  protected readonly categoria$ = this.route.paramMap.pipe(
+    filter((params) => params.has('id')),
+    map((params) => params.get('id')!),
+    switchMap((id) => this.categoriaService.selecionarPorId(id)),
+    tap((categoria) => this.categoriaForm.patchValue(categoria)),
+    shareReplay({ bufferSize: 1, refCount: true }),
+  );
+
+  public editar() {
     if (this.categoriaForm.invalid) return;
 
-    const categoriaModel: CadastrarCategoriaModel = this.categoriaForm.value;
+    const editarCategoriaModel: EditarCategoriaModel = this.categoriaForm.value;
 
-    const cadastroObserver: Observer<CadastrarCategoriaResponseModel> = {
+    const edicaoObserver: Observer<EditarCategoriaResponseModel> = {
       next: () =>
         this.notificacaoService.sucesso(
-          `O registro "${categoriaModel.titulo}" foi cadastrado com sucesso!`,
+          `O registro "${editarCategoriaModel.titulo}" foi editado com sucesso!`,
         ),
       error: (err) => this.notificacaoService.erro(err.message),
       complete: () => this.router.navigate(['/categorias']),
     };
 
-    this.categoriaService.cadastrar(categoriaModel).subscribe(cadastroObserver);
+    this.categoria$
+      .pipe(
+        take(1),
+        switchMap((categoria) => this.categoriaService.editar(categoria.id, editarCategoriaModel)),
+      )
+      .subscribe(edicaoObserver);
   }
 }
