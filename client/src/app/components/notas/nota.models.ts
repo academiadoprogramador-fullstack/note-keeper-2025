@@ -17,3 +17,25 @@ export interface CadastrarNotaModel {
 export interface CadastrarNotaResponseModel {
   id: string;
 }
+
+export interface EditarNotaModel {
+  titulo: string;
+  conteudo: string;
+}
+
+export interface EditarNotaResponseModel {
+  titulo: string;
+  conteudo: string;
+}
+
+export interface DetalhesNotaModel {
+  id: string;
+  titulo: string;
+  conteudo: string;
+  categoria: CategoriaNotaModel;
+}
+
+export interface CategoriaNotaModel {
+  id: string;
+  titulo: string;
+}

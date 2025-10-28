@@ -1,12 +1,14 @@
+import { filter, map, Observable, shareReplay } from 'rxjs';
+
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { NotaService } from '../nota.service';
+import { ListagemNotasModel } from '../nota.models';
 
 @Component({
   selector: 'app-listar-notas',
@@ -14,7 +16,11 @@ import { NotaService } from '../nota.service';
   templateUrl: './listar-notas.html',
 })
 export class ListarNotas {
-  protected readonly notaService = inject(NotaService);
+  protected readonly route = inject(ActivatedRoute);
 
-  protected readonly notas$ = this.notaService.selecionarTodas();
+  protected readonly notas$: Observable<ListagemNotasModel[]> = this.route.data.pipe(
+    filter((data) => data['notas']),
+    map((data) => data['notas'] as ListagemNotasModel[]),
+    shareReplay({ bufferSize: 1, refCount: true }),
+  );
 }
