@@ -48,7 +48,7 @@ public class NotaController(NotaAppService notaService) : Controller
         if (result.IsFailed)
             return BadRequest();
 
-        var response = new EditarNotaResponse(result.Value.Titulo, result.Value.Conteudo, result.Value.Categoria);
+        var response = new EditarNotaResponse(result.Value.Titulo, result.Value.Conteudo, result.Value.CategoriaId);
 
         return Ok(response);
     }

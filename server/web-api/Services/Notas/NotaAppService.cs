@@ -91,7 +91,7 @@ public class NotaAppService(
 
             await dbContext.SaveChangesAsync(cancellationToken);
 
-            var result = new EditarNotaResult(notaSelecionada.Titulo, notaSelecionada.Conteudo, notaSelecionada.Categoria!.Titulo);
+            var result = new EditarNotaResult(notaSelecionada.Titulo, notaSelecionada.Conteudo, notaSelecionada.CategoriaId);
 
             return Result.Ok(result);
         }
