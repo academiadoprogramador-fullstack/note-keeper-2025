@@ -86,6 +86,8 @@ public class NotaAppService(
         try
         {
             notaSelecionada.Titulo = command.Titulo;
+            notaSelecionada.Conteudo = command.Conteudo;
+            notaSelecionada.CategoriaId = command.CategoriaId;
 
             await dbContext.SaveChangesAsync(cancellationToken);
 
