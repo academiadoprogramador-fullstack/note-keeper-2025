@@ -5,7 +5,7 @@ export function obterHeaderAutorizacao(accessToken?: AccessTokenModel) {
 
   return {
     headers: {
-      Authorization: accessToken.chave,
+      Authorization: 'Bearer ' + accessToken.chave,
     },
   };
 }
