@@ -52,6 +52,22 @@
           <span class="fs-4">NoteKeeper</span>
         </span>
       }
+
+      <button
+        class="ms-auto"
+        style="min-width: 180px"
+        mat-raised-button
+        [matMenuTriggerFor]="opcoesUsuario"
+      >
+        <mat-icon>person</mat-icon>
+        {{ usuarioAutenticado.nomeCompleto }}
+      </button>
+      <mat-menu #opcoesUsuario="matMenu">
+        <button mat-menu-item style="min-width: 160px" (click)="sair.emit()">
+          <mat-icon>arrow_backwards</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="container-fluid py-3">

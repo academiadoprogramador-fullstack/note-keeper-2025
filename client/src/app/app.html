@@ -1,3 +1,9 @@
-<app-shell>
-  <router-outlet></router-outlet>
-</app-shell>
+@if (usuarioEstaAutenticado$ | async; as usuarioAutenticado) {
+  <app-shell [usuarioAutenticado]="usuarioAutenticado!" (sair)="sair()">
+    <router-outlet></router-outlet>
+  </app-shell>
+} @else {
+  <main class="container-fluid py-3">
+    <router-outlet></router-outlet>
+  </main>
+}

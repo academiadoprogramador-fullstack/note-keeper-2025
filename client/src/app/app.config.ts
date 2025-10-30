@@ -1,25 +1,54 @@
+import { map } from 'rxjs';
+
 import { provideHttpClient } from '@angular/common/http';
 import {
-    ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
+    ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
 } from '@angular/core';
-import { provideRouter, Routes } from '@angular/router';
+import { CanActivateFn, provideRouter, Router, Routes } from '@angular/router';
 
+import { AuthService } from './components/auth/auth.service';
 import { provideNotifications } from './components/shared/notificacao/notificacao.provider';
 
+export const usuarioDesconhecidoGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.usuarioAutenticado$.pipe(
+    map((estaAutenticado) => (!estaAutenticado ? true : router.createUrlTree(['/inicio']))),
+  );
+};
+
+export const usuarioAutenticadoGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.usuarioAutenticado$.pipe(
+    map((estaAutenticado) => (estaAutenticado ? true : router.createUrlTree(['/auth/login']))),
+  );
+};
+
 export const routes: Routes = [
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./components/auth/auth.routes').then((r) => r.authRoutes),
+    canActivate: [usuarioDesconhecidoGuard],
+  },
   {
     path: 'inicio',
     loadComponent: () => import('./components/inicio/inicio').then((c) => c.Inicio),
+    canActivate: [usuarioAutenticadoGuard],
   },
   {
     path: 'categorias',
     loadChildren: () =>
       import('./components/categorias/categoria.routes').then((r) => r.categoriaRoutes),
+    canActivate: [usuarioAutenticadoGuard],
   },
   {
     path: 'notas',
     loadChildren: () => import('./components/notas/nota.routes').then((r) => r.notaRoutes),
+    canActivate: [usuarioAutenticadoGuard],
   },
 ];
 
@@ -31,5 +60,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
 
     provideNotifications(),
+    AuthService,
   ],
 };
