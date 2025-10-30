@@ -1,9 +1,12 @@
 import { provideHttpClient } from '@angular/common/http';
 import {
-    ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
+import { provideAuth } from './components/auth/auth.provider';
 import { provideNotifications } from './components/shared/notificacao/notificacao.provider';
 
 export const routes: Routes = [
@@ -31,5 +34,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
 
     provideNotifications(),
+    provideAuth(),
   ],
 };
