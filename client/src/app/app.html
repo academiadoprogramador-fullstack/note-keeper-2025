@@ -1,5 +1,5 @@
-@if (usuarioEstaAutenticado$ | async; as usuarioAutenticado) {
-  <app-shell [usuarioAutenticado]="usuarioAutenticado!" (sair)="sair()">
+@if (this.authService.accessToken$ | async; as acessToken) {
+  <app-shell [usuarioAutenticado]="acessToken.usuarioAutenticado" (sair)="sair()">
     <router-outlet></router-outlet>
   </app-shell>
 } @else {

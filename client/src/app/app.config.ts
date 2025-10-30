@@ -8,12 +8,13 @@ import { CanActivateFn, provideRouter, Router, Routes } from '@angular/router';
 
 import { AuthService } from './components/auth/auth.service';
 import { provideNotifications } from './components/shared/notificacao/notificacao.provider';
+import { LocalStorageService } from './services/local-storage.service';
 
 export const usuarioDesconhecidoGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  return authService.usuarioAutenticado$.pipe(
+  return authService.accessToken$.pipe(
     map((estaAutenticado) => (!estaAutenticado ? true : router.createUrlTree(['/inicio']))),
   );
 };
@@ -22,7 +23,7 @@ export const usuarioAutenticadoGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  return authService.usuarioAutenticado$.pipe(
+  return authService.accessToken$.pipe(
     map((estaAutenticado) => (estaAutenticado ? true : router.createUrlTree(['/auth/login']))),
   );
 };
@@ -61,5 +62,6 @@ export const appConfig: ApplicationConfig = {
 
     provideNotifications(),
     AuthService,
+    LocalStorageService,
   ],
 };

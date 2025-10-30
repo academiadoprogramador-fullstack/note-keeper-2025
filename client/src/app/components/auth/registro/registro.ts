@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 
 import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
-import { RegistroModel, UsuarioAutenticadoModel } from '../auth.models';
+import { AccessTokenModel, RegistroModel } from '../auth.models';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -55,7 +55,7 @@ export class Registro {
 
     const registroModel: RegistroModel = this.registroForm.value;
 
-    const registroObserver: PartialObserver<UsuarioAutenticadoModel> = {
+    const registroObserver: PartialObserver<AccessTokenModel> = {
       error: (err) => this.notificacaoService.erro(err.message),
       complete: () => this.router.navigate(['/inicio']),
     };

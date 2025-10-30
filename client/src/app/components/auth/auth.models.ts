@@ -9,7 +9,7 @@ export interface LoginModel {
   senha: string;
 }
 
-export interface TokenResponseModel {
+export interface AccessTokenModel {
   chave: string;
   expiracao: Date;
   usuarioAutenticado: UsuarioAutenticadoModel;

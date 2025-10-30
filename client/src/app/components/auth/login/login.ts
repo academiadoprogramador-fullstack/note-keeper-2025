@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 
 import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
-import { LoginModel, UsuarioAutenticadoModel } from '../auth.models';
+import { AccessTokenModel, LoginModel } from '../auth.models';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class Login {
 
     const loginModel: LoginModel = this.loginForm.value;
 
-    const loginObserver: PartialObserver<UsuarioAutenticadoModel> = {
+    const loginObserver: PartialObserver<AccessTokenModel> = {
       error: (err) => this.notificacaoService.erro(err.message),
       complete: () => this.router.navigate(['/inicio']),
     };

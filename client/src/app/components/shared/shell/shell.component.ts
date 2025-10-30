@@ -32,7 +32,7 @@ import { UsuarioAutenticadoModel } from '../../auth/auth.models';
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  @Input({ required: true }) public usuarioAutenticado!: UsuarioAutenticadoModel;
+  @Input({ required: true }) public usuarioAutenticado?: UsuarioAutenticadoModel;
   @Output() public sair = new EventEmitter<void>();
 
   public isHandset$: Observable<boolean> = this.breakpointObserver
