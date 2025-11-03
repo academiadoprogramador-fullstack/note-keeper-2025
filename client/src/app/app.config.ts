@@ -1,6 +1,5 @@
 import { map, take } from 'rxjs';
 
-import { provideHttpClient } from '@angular/common/http';
 import {
     ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
 } from '@angular/core';
@@ -61,7 +60,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
 
     provideNotifications(),
     provideAuth(),
