@@ -45,6 +45,6 @@ export const categoriaRoutes: Routes = [
         resolve: { categoria: detalhesCategoriaResolver },
       },
     ],
-    providers: [CategoriaService]
+    providers: [CategoriaService],
   },
 ];

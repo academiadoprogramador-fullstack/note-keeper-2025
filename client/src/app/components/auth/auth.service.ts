@@ -1,5 +1,5 @@
 import {
-    BehaviorSubject, defer, distinctUntilChanged, merge, Observable, of, shareReplay, tap
+    BehaviorSubject, defer, distinctUntilChanged, merge, Observable, of, shareReplay, skip, tap
 } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
@@ -20,25 +20,27 @@ export class AuthService {
   );
 
   private readonly acessTokenArmazenadoSubject$ = defer(() => {
-    const token = this.obterAccessToken();
+    const accessToken = this.obterAccessToken();
 
-    if (!token) return of<AccessTokenModel | undefined>(undefined);
+    if (!accessToken) return of<AccessTokenModel | undefined>(undefined);
 
-    const valido = new Date(token.expiracao) > new Date();
+    const valido = new Date(accessToken.expiracao) > new Date();
 
-    if (valido) return of(token);
+    if (!valido) return of<AccessTokenModel | undefined>(undefined);
 
-    return of<AccessTokenModel | undefined>(undefined);
+    return of(accessToken);
   });
 
   public readonly accessToken$ = merge(
     this.acessTokenArmazenadoSubject$,
-    this.accessTokenSubject$,
+    this.accessTokenSubject$.pipe(skip(1)),
   ).pipe(
     distinctUntilChanged((a, b) => a === b),
     tap((accessToken) => {
       if (accessToken) this.salvarAccessToken(accessToken);
       else this.limparAccessToken();
+
+      this.accessTokenSubject$.next(accessToken);
     }),
     shareReplay({ bufferSize: 1, refCount: true }),
   );

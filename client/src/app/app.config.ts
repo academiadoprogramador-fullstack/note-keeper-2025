@@ -1,11 +1,7 @@
 import { map } from 'rxjs';
 
-import { provideHttpClient } from '@angular/common/http';
 import {
-  ApplicationConfig,
-  inject,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+    ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
 } from '@angular/core';
 import { CanActivateFn, provideRouter, Router, Routes } from '@angular/router';
 
@@ -62,8 +58,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
-
     provideNotifications(),
     provideAuth(),
   ],
