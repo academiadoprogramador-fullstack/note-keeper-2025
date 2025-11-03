@@ -1,4 +1,4 @@
-import { map, take } from 'rxjs';
+import { map } from 'rxjs';
 
 import {
     ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
@@ -15,7 +15,6 @@ const usuarioDesconhecidoGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   return authService.accessToken$.pipe(
-    take(1),
     map((token) => (!token ? true : router.createUrlTree(['/inicio']))),
   );
 };
@@ -25,7 +24,6 @@ const usuarioAutenticadoGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   return authService.accessToken$.pipe(
-    take(1),
     map((token) => (token ? true : router.createUrlTree(['/auth/login']))),
   );
 };
