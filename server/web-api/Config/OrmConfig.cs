@@ -14,4 +14,13 @@ public static class OrmConfig
 
         return services;
     }
+
+    public static void ApplyMigrations(this IHost host)
+    {
+        using var scope = host.Services.CreateScope();
+
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        db.Database.Migrate();
+    }
 }
