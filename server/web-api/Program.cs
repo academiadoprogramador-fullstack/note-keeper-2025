@@ -27,6 +27,9 @@ public class Program
 
         builder.Services.AddSwaggerConfig();
 
+        builder.Services.ConfigureOptions<CorsConfig>()
+                        .AddCors();
+
         builder.Services.AddControllers();
 
         var app = builder.Build();
@@ -56,7 +59,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
 
