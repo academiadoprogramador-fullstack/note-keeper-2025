@@ -1,6 +1,4 @@
-@use 'bootstrap/scss/bootstrap-reboot';
-@use 'bootstrap/scss/bootstrap-grid';
-@use 'bootstrap/scss/bootstrap-utilities';
+@use 'tailwindcss';
 
 @use '@angular/material' as mat;
 
@@ -87,7 +85,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-// Bootstrap Override
+// Tailwind Override
 @media screen and (min-width: 660px) {
   .card-column {
     flex: 0 0 330px;
