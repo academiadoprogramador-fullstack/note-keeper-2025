@@ -12,7 +12,7 @@
         <button
           type="button"
           aria-label="Ativar barra de navegação lateral"
-          class="me-2"
+          class="mr-2"
           matIconButton
           (click)="drawer.toggle()"
         >
@@ -20,9 +20,9 @@
         </button>
       }
 
-      <span class="d-flex align-items-center gap-2">
+      <span class="flex items-center gap-2">
         <mat-icon>collections_notebook</mat-icon>
-        <span class="fs-4">NoteKeeper</span>
+        <span class="text-xl">NoteKeeper</span>
       </span>
     </mat-toolbar>
 
@@ -41,19 +41,19 @@
         <button
           type="button"
           aria-label="Ativar barra de navegação lateral"
-          class="me-2"
+          class="mr-2"
           matIconButton
           (click)="drawer.toggle()"
         >
           <mat-icon aria-label="Ícone ativar barra de navegação lateral">menu</mat-icon>
         </button>
 
-        <span class="d-flex align-items-center gap-2">
+        <span class="flex items-center gap-2">
           <mat-icon>collections_bookmark</mat-icon>
-          <span class="fs-4">NoteKeeper</span>
+          <span class="text-xl">NoteKeeper</span>
         </span>
       }
-      <button mat-raised-button [matMenuTriggerFor]="opcoesUsuario" class="ms-auto">
+      <button mat-raised-button [matMenuTriggerFor]="opcoesUsuario" class="ml-auto">
         <mat-icon>person</mat-icon>
         {{ usuarioAutenticado.nomeCompleto }}
       </button>
@@ -65,12 +65,12 @@
         </button>
       </mat-menu>
     </mat-toolbar>
-    <svg height="32" width="32" style="position: relative; top: 0; right: 0">
+    <svg height="32" width="32" class="relative top-0 right-0">
       <path class="sidenav-svg" d="M 32,0 H -32,0 V 0,32 a 32, 32 0 0, 1 32,-32"></path>
     </svg>
 
     <!-- Add Content Here -->
-    <div class="container-fluid px-4">
+    <div class="px-4">
       <ng-content></ng-content>
     </div>
   </mat-sidenav-content>
